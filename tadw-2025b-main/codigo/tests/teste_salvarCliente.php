@@ -6,5 +6,10 @@
     $cpf = "321.456.234-11";
     $endereco = "Rua 1";
 
-    salvarCliente($conexao, $nome, $cpf, $endereco);
+    
+    if (!is_null(salvarCliente($conexao, $nome, $cpf, $endereco))) {
+        echo "funcionou";
+    } else {
+        echo "não funcionou";
+    }
 ?>

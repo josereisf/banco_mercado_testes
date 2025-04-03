@@ -9,5 +9,10 @@
     $ml = 2;
     $quant = 7;
 
-    salvarProduto($conexao, $nome, $tipo, $pc, $pv, $ml, $quant)
+    
+    if (!is_null(salvarProduto($conexao, $nome, $tipo, $pc, $pv, $ml, $quant))) {
+        echo "funcionou";
+    } else {
+        echo "não funcionou";
+    }
 ?>

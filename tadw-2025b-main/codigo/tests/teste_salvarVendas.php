@@ -7,4 +7,9 @@
     $valort = 10.5;
     $data = "2013-12-05"; 
 
-    salvarVenda($conexao, $idc, $idp, $valort, $data);
+    
+    if (!is_null(salvarVenda($conexao, $idc, $idp, $valort, $data))) {
+        echo "funcionou";
+    } else {
+        echo "não funcionou";
+    }

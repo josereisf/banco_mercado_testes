@@ -6,5 +6,10 @@
     $email= "joaozin@gmail.com";
     $senha = "123";
 
-    salvarUsuario($conexao, $nome, $email, $senha);
+
+    if (!is_null(salvarUsuario($conexao, $nome, $email, $senha))) {
+        echo "funcionou";
+    } else {
+        echo "não funcionou";
+    }
 ?>
