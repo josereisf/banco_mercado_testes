@@ -8,23 +8,23 @@
 <body>
     <form action='salvarVenda.php'>
     Nome do cliente:<br>
-    <input type="text" name="cliente"><br>
+    <input type="text" name="nome"><br>
     Valor total:<br>
     <input type="text" name="valor" ><br>
     Data:<br>
-    <input type="text" name="data" ><br>
+    <input type="text" name="data" ><br><br><br>
 
     <?php
     require_once "../funcoes.php";
     require_once "../conexao.php";
-    
-    $resultados = [];
-    $resultados[] = listarProdutos($conexao);
-    print_r ($lista_produtos);
 
-
-
+    $resultados = listarProdutos($conexao);
+    foreach ($resultados as $r){
+        echo "<input type='checkbox' name='produto' >".$r['nome']."<input type='text' name='quantidade' ><br>";
+    }
     ?>
+
+    <input type="submit" value="Salvar"> 
     </form>
 
 </body>
