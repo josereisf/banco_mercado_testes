@@ -1,6 +1,8 @@
 <?php
+require_once "../funcoes.php";
+require_once "../conexao.php";
 
-$nome = $_POST["nome"];
+$idcliente = $_POST["idcliente"];
 $valor_total = $_POST["valor"];
 $data = $_POST["data"];
 $produtos = $_POST["produto"];
