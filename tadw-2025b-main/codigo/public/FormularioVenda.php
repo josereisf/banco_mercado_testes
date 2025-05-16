@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action='salvarVenda.php'>
+    <form action='salvarVenda.php' method='post'>
     Nome do cliente:<br>
     <input type="text" name="nome"><br>
     Valor total:<br>
@@ -19,8 +19,11 @@
     require_once "../conexao.php";
 
     $resultados = listarProdutos($conexao);
+    $index = 0;
     foreach ($resultados as $r){
-        echo "<input type='checkbox' name='produto' >".$r['nome']."<input type='text' name='quantidade' ><br>";
+        echo "<input type='checkbox' name='produto[".$index."][0]' value='".$r['idproduto']."'>".$r['nome']."
+        <input type='text' name='produto[".$index."][1]' ><br>";
+        $index++;
     }
     ?>
 

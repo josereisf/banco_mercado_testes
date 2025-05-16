@@ -1,13 +1,15 @@
 <?php
 
-$nome = $_GET["nome"];
-$valor = $_GET["valor"];
-$data = $_GET["data"];
-$produto = $_GET["produto"];
-$quantidade = $_GET["quantidade"];
+$nome = $_POST["nome"];
+$valor_total = $_POST["valor"];
+$data = $_POST["data"];
+$produtos = $_POST["produto"];
 
-print_r($nome);
-print_r($valor);
-print_r($data);
-print_r($produto);
-print_r($quantidade);
+$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
+
+foreach ($produtos as $p) {
+    salvarItemVenda($conexao, $id_venda, $p[0], $p[1]);
+}
+echo "<pre>";
+print_r(listarItemVendas($conexao));
+echo "</pre>";
