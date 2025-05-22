@@ -9,7 +9,7 @@
 
 <body>
     <form action='salvarVenda.php' method='post'>
-        <h4>Cliente:</h4>
+        Cliente:
         <select name="idcliente">
             <?php
             require_once "../funcoes.php";
@@ -34,7 +34,6 @@
         <input type="text" name="data"><br><br><br>
 
         <?php
-
         $resultados = listarProdutos($conexao);
         $index = 0;
         foreach ($resultados as $r) {
