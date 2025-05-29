@@ -31,10 +31,12 @@
         $resultados = listarProdutos($conexao);
 
         for ($i = 0; $i < sizeof($resultados); $i++) {
-            echo '<input type="checkbox" name="produto[0]" value="' . $resultados[$i]['idproduto'] . '">' . $resultados[$i]['nome'];
-            echo '<input type="text" name="quantidade[0]">';
+            echo '<input type="checkbox" name="produto[' . $i . ']" value="' . $resultados[$i]['idproduto'] . '">';
+            echo $resultados[$i]['nome'];
+            echo '<input type="text" name="quantidade[' . $i . ']" />';
             echo '<br>';
         }
+        
         
         ?>
         <input type="submit" value="Salvar">

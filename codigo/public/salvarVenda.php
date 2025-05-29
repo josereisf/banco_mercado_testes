@@ -11,11 +11,23 @@ $quantidades = $_POST["quantidade"];
 $tudojunto = array($produtos, $quantidades);
 $id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
-$i = 0;
+
+$tudojunto = array(
+    array('produtos' => $produtos, 'quantidades' => $quantidades)
+);
+
+$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
+
 foreach ($tudojunto as $tj) {
-    for ($i = 0; $i < sizeof($tj[1]); $i++) {
-        if ($tj[1][$i] == null){
-        salvarItemVenda($conexao, $id_venda, $tj[0][$i], $tj[1][$i]);
+    // Agora $tj é um array associativo com 'produtos' e 'quantidades'
+    $produtos = $tj['produtos'];
+    $quantidades = $tj['quantidades'];
+
+    // Usando um loop para percorrer ambos os arrays ao mesmo tempo
+    for ($i = 0; $i < count($produtos); $i++) {
+        // Verificando se o valor do produto não é null e se a quantidade existe
+        if ($produtos[$i] != null && isset($quantidades[$i])) {
+            salvarItemVenda($conexao, $id_venda, $produtos[$i], $quantidades[$i]);
         }
     }
 }
