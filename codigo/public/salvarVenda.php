@@ -6,13 +6,21 @@ $idcliente = $_POST["idcliente"];
 $valor_total = $_POST["valor"];
 $data = $_POST["data"];
 $produtos = $_POST["produto"];
+$quantidades = $_POST["quantidade"];
 
-//$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
+$tudojunto = array($produtos, $quantidades);
+$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
-//foreach ($produtos as $p) {
-//    salvarItemVenda($conexao, $id_venda, $p[0], $p[1]);
-//}
+$i = 0;
+foreach ($tudojunto as $tj) {
+    for ($i = 0; $i < sizeof($tj[1]); $i++) {
+        if ($tj[1][$i] == null){
+        salvarItemVenda($conexao, $id_venda, $tj[0][$i], $tj[1][$i]);
+        }
+    }
+}
+
 echo "<pre>";
-print_r($produtos);
-//print_r(listarItemVendas($conexao));
+print_r($tudojunto);
+print_r(listarItemVendas($conexao));
 echo "</pre>";
