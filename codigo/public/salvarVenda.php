@@ -8,31 +8,30 @@ $data = $_POST["data"];
 $produtos = $_POST["produto"];
 $quantidades = $_POST["quantidade"];
 
-$tudojunto = array($produtos, $quantidades);
-$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
+$tudojunto = [];
 
+$erro = '';
 
-$tudojunto = array(
-    array('produtos' => $produtos, 'quantidades' => $quantidades)
-);
-
-$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
-
-foreach ($tudojunto as $tj) {
-    // Agora $tj é um array associativo com 'produtos' e 'quantidades'
-    $produtos = $tj['produtos'];
-    $quantidades = $tj['quantidades'];
-
-    // Usando um loop para percorrer ambos os arrays ao mesmo tempo
-    for ($i = 0; $i < count($produtos); $i++) {
-        // Verificando se o valor do produto não é null e se a quantidade existe
-        if ($produtos[$i] != null && isset($quantidades[$i])) {
-            salvarItemVenda($conexao, $id_venda, $produtos[$i], $quantidades[$i]);
-        }
+$q_erro = 0;
+for ($i = 0; $i < sizeof($quantidades); $i++) {
+    if (!empty($produtos[$i]) and !empty($quantidades[$i])) {
+        $tudojunto[$i][0] = $produtos[$i];
+        $tudojunto[$i][1] = $quantidades[$i];
+    } elseif (!empty($quantidades[$i]) or !empty($produtos[$i])) {
+        $q_erro++;
+        $erro = $q_erro ." produto(s) não foi/foram registrado(s), o campo produto ou quantidade foi deixado em branco.";
     }
 }
+$id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
+
+
+foreach ($tudojunto as $tj) {
+    salvarItemVenda($conexao, $id_venda, $tj[0], $tj[1]);
+}
+print_r($erro);
 echo "<pre>";
-print_r($tudojunto);
+//print_r($tudojunto);
+echo "<br>";
 print_r(listarItemVendas($conexao));
 echo "</pre>";
