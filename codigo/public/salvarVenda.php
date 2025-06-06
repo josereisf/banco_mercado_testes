@@ -1,12 +1,25 @@
 <?php
 require_once "../funcoes.php";
 require_once "../conexao.php";
+session_start();
 
-$idcliente = $_POST["idcliente"];
-$valor_total = $_POST["valor"];
-$data = $_POST["data"];
-$produtos = $_POST["produto"];
-$quantidades = $_POST["quantidade"];
+// $idcliente = $_POST["idcliente"];
+// $valor_total = $_POST["valor"];
+// $data = $_POST["data"];
+// $produtos = $_POST["produto"];
+// $quantidades = $_POST["quantidade"];
+
+$_SESSION['idcliente'] = $_POST["idcliente"];
+$_SESSION['valor_total'] = $_POST["valor"];
+$_SESSION['data'] = $_POST["data"];
+$_SESSION['produtos'] = $_POST["produto"];
+$_SESSION['quantidades'] = $_POST["quantidade"];
+
+$idcliente = $_SESSION["idcliente"];
+$valor_total = $_SESSION["valor"];
+$data = $_SESSION["data"];
+$produtos = $_SESSION["produtos"];
+$quantidades = $_SESSION["quantidades"];
 
 $tudojunto = [];
 
