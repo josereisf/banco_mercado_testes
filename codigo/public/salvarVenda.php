@@ -16,7 +16,7 @@ $_SESSION['produtos'] = $_POST["produto"];
 $_SESSION['quantidades'] = $_POST["quantidade"];
 
 $idcliente = $_SESSION["idcliente"];
-$valor_total = $_SESSION["valor"];
+$valor_total = $_SESSION["valor_total"];
 $data = $_SESSION["data"];
 $produtos = $_SESSION["produtos"];
 $quantidades = $_SESSION["quantidades"];
@@ -32,8 +32,11 @@ for ($i = 0; $i < sizeof($quantidades); $i++) {
         $tudojunto[$i][1] = $quantidades[$i];
     } elseif (!empty($quantidades[$i]) or !empty($produtos[$i])) {
         $q_erro++;
-        $erro = $q_erro ." produto(s) não foi/foram registrado(s), o campo produto ou quantidade foi deixado em branco.";
+        $erro = $q_erro . " produto(s) não foi/foram registrado(s), o campo produto ou quantidade foi deixado em branco.";
     }
+if ($q_erro > 0) {
+    header("Location: confirmacao.php?erro=$erro");
+}
 }
 $id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
@@ -48,3 +51,4 @@ echo "<pre>";
 echo "<br>";
 print_r(listarItemVendas($conexao));
 echo "</pre>";
+session_destroy();

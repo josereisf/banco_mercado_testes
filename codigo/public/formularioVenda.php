@@ -1,3 +1,21 @@
+<?php
+
+session_start();
+if (!empty($_SESSION["idcliente"])) {
+    $idcliente = $_SESSION["idcliente"];
+    $valor_total = $_SESSION["valor_total"];
+    $data = $_SESSION["data"];
+    $produtos = $_SESSION["produtos"];
+    $quantidades = $_SESSION["quantidades"];
+} else {
+    $idcliente = '';
+    $valor_total = '';
+    $data = '';
+    $produtos = '';
+    $quantidades = '';
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,26 +35,42 @@
 
             $resultados = listarClientes($conexao);
 
-            foreach($resultados as $r){
-                echo "<option value='".$r['idcliente']."'>".$r['nome']."</option>";
+            foreach ($resultados as $r) {
+                if ($r['idcliente'] == $idcliente) {
+                    $selecionado = 'selected';
+                } else {
+                    $selecionado = '';
+                }
+                echo "<option value='" . $r['idcliente'] . "'$selecionado>" . $r['nome'] . "</option>";
             }
             ?>
         </select><br>
         Valor:<br>
-        <input type="text" name="valor"><br>
+        <input type="text" name="valor" value="<?php echo $valor_total; ?>"><br>
         Data:<br>
-        <input type="date" name="data"><br><br><br>
+        <input type="date" name="data" value="<?php echo $data; ?>"><br><br><br>
 
         <?php
         $resultados = listarProdutos($conexao);
 
         for ($i = 0; $i < sizeof($resultados); $i++) {
-            echo '<input type="checkbox" name="produto['. $i .']" value="'. $resultados[$i]['idproduto'] .'">'.$resultados[$i]['nome'];
-            echo '<input type="number" name="quantidade['. $i .']" />';
+            $selecionado = '';
+            $valor = 0;
+
+            if (!empty($_SESSION["idcliente"])) {
+                if ($resultados[$i]['idproduto'] == $produtos[$i]) {
+                    $selecionado = "checked";
+                }
+                if (!empty($quantidades[$i])) {
+                    $valor = $quantidades[$i];
+                }
+            }
+            echo '<input type="checkbox" name="produto[' . $i . ']" value="' . $resultados[$i]['idproduto'] . '"' . $selecionado . '>' . $resultados[$i]['nome'];
+            echo '<input type="number" name="quantidade[' . $i . ']" value="' . $valor . '">';
             echo '<br>';
         }
-        
-        
+
+
         ?>
         <input type="submit" value="Salvar">
     </form>
