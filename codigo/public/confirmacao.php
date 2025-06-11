@@ -2,9 +2,6 @@
 
 $erro = $_GET["erro"];
 
-session_start();
-print_r($_SESSION);
-
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +17,6 @@ print_r($_SESSION);
   <h2><?php echo $erro; ?></h2> <br>
   <h2> Deseja voltar e corrigir a compra ou continuar?(o produto não será salvo)</h2><br>
   <a href="formularioVenda.php">Retornar</a>
-  <a href="salvarVenda.php">Continuar</a>
 </body>
 
 </html>

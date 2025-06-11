@@ -58,8 +58,10 @@ if (!empty($_SESSION["idcliente"])) {
             $valor = 0;
 
             if (!empty($_SESSION["idcliente"])) {
-                if ($resultados[$i]['idproduto'] == $produtos[$i]) {
-                    $selecionado = "checked";
+                if (!empty($produtos[$i])) {
+                    if ($resultados[$i]['idproduto'] == $produtos[$i]) {
+                        $selecionado = "checked";
+                    }
                 }
                 if (!empty($quantidades[$i])) {
                     $valor = $quantidades[$i];
