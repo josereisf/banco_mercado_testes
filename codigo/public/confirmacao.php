@@ -1,6 +1,6 @@
 <?php
 
-$erro = $_GET["erro"];
+$erro = $_GET["erro"] ;
 
 ?>
 
@@ -14,9 +14,9 @@ $erro = $_GET["erro"];
 </head>
 
 <body>
-  <h2><?php echo $erro; ?></h2> <br>
+  <h2><?php echo $erro; ?> produto(s) não foi registrado(s), o campo produto ou quantidade foi deixado em branco.</h2> <br>
   <h2> Deseja voltar e corrigir a compra ou continuar?(o produto não será salvo)</h2><br>
-  <a href="formularioVenda.php">Retornar</a>
+  <a href="formularioVenda.php">Retornar</a> <a href="salvarVenda.php?ignorar=1">Continuar</a>
 </body>
 
 </html>

@@ -1,7 +1,11 @@
 <?php
 
 session_start();
-if (!empty($_SESSION["idcliente"])) {
+if (isset($_GET['reset']) and $_GET['reset'] == 1){
+    session_destroy();
+    header("Location: formularioVenda.php");
+}
+if (isset($_SESSION["idcliente"])) {
     $idcliente = $_SESSION["idcliente"];
     $valor_total = $_SESSION["valor_total"];
     $data = $_SESSION["data"];
@@ -74,7 +78,7 @@ if (!empty($_SESSION["idcliente"])) {
 
 
         ?>
-        <input type="submit" value="Salvar">
+        <input type="submit" value="Salvar"> <a href="formularioVenda.php?reset=1">Resetar</a>
     </form>
 
 </body>

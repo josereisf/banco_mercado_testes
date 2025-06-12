@@ -3,18 +3,15 @@ require_once "../funcoes.php";
 require_once "../conexao.php";
 session_start();
 
-// $idcliente = $_POST["idcliente"];
-// $valor_total = $_POST["valor"];
-// $data = $_POST["data"];
-// $produtos = $_POST["produto"];
-// $quantidades = $_POST["quantidade"];
 
-$_SESSION['idcliente'] = $_POST["idcliente"];
-$_SESSION['valor_total'] = $_POST["valor"];
-$_SESSION['data'] = $_POST["data"];
-$_SESSION['produtos'] = $_POST["produto"];
-$_SESSION['quantidades'] = $_POST["quantidade"];
-
+$ignorar = 0;
+if (isset($_POST['idcliente'])) {
+    $_SESSION['idcliente'] = $_POST["idcliente"];
+    $_SESSION['valor_total'] = $_POST["valor"];
+    $_SESSION['data'] = $_POST["data"];
+    $_SESSION['produtos'] = $_POST["produto"];
+    $_SESSION['quantidades'] = $_POST["quantidade"];
+}
 $idcliente = $_SESSION["idcliente"];
 $valor_total = $_SESSION["valor_total"];
 $data = $_SESSION["data"];
@@ -23,19 +20,20 @@ $quantidades = $_SESSION["quantidades"];
 
 $tudojunto = [];
 
-$erro = '';
 $q_erro = 0;
+if (isset($_GET['ignorar'])) {
+    $ignorar = $_GET['ignorar'];
+}
 for ($i = 0; $i < sizeof($quantidades); $i++) {
     if (!empty($produtos[$i]) and !empty($quantidades[$i])) {
         $tudojunto[$i][0] = $produtos[$i];
         $tudojunto[$i][1] = $quantidades[$i];
     } elseif (!empty($quantidades[$i]) or !empty($produtos[$i])) {
         $q_erro++;
-        $erro = $q_erro . " produto(s) não foi registrado(s), o campo produto ou quantidade foi deixado em branco.";
     }
 }
-if ($q_erro > 0) {
-    header("Location: confirmacao.php?erro=$erro");
+if ($q_erro > 0 and $ignorar == 0) {
+    header("Location: confirmacao.php?erro=$q_erro");
     exit;
 }
 
@@ -53,3 +51,6 @@ print_r(listarItemVendas($conexao));
 echo "</pre>";
 
 session_destroy();
+
+echo "<br>";
+echo "<a href='formularioVenda.php'>Continuar</a>";
